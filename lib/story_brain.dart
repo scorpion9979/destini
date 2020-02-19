@@ -3,6 +3,7 @@ import 'choice.dart';
 
 class StoryBrain {
   int _storyNumber = 0;
+  bool _isFinished = false;
   List<Story> _storyData = [
     Story(
         storyTitle:
@@ -38,8 +39,11 @@ class StoryBrain {
   String getStory() => _storyData[_storyNumber].storyTitle;
   String getChoice1() => _storyData[_storyNumber].choice1;
   String getChoice2() => _storyData[_storyNumber].choice2;
+  bool isFinished() => _isFinished;
+  void setFinished() => _isFinished = true;
   void restart() {
     _storyNumber = 0;
+    _isFinished = false;
   }
 
   void nextStory({Choice choice}) {
@@ -61,6 +65,7 @@ class StoryBrain {
             break;
           case Choice.two:
             _storyNumber = 3;
+            setFinished();
             break;
         }
         break;
@@ -68,9 +73,11 @@ class StoryBrain {
         switch (choice) {
           case Choice.one:
             _storyNumber = 5;
+            setFinished();
             break;
           case Choice.two:
             _storyNumber = 4;
+            setFinished();
             break;
         }
         break;
@@ -79,5 +86,3 @@ class StoryBrain {
     }
   }
 }
-
-//TODO: Step 27 - Create a method called buttonShouldBeVisible() which checks to see if storyNumber is 0 or 1 or 2 (when both buttons should show choices) and return true if that is the case, else it should return false.
