@@ -1,4 +1,5 @@
 import 'story.dart';
+import 'choice.dart';
 
 class StoryBrain {
   int _storyNumber = 0;
@@ -37,17 +38,46 @@ class StoryBrain {
   String getStory() => _storyData[_storyNumber].storyTitle;
   String getChoice1() => _storyData[_storyNumber].choice1;
   String getChoice2() => _storyData[_storyNumber].choice2;
-  void nextStory({int choiceNumber}) {
+  void restart() {
+    _storyNumber = 0;
+  }
 
+  void nextStory({Choice choice}) {
+    switch (_storyNumber) {
+      case 0:
+        switch (choice) {
+          case Choice.one:
+            _storyNumber = 2;
+            break;
+          case Choice.two:
+            _storyNumber = 1;
+            break;
+        }
+        break;
+      case 1:
+        switch (choice) {
+          case Choice.one:
+            _storyNumber = 2;
+            break;
+          case Choice.two:
+            _storyNumber = 3;
+            break;
+        }
+        break;
+      case 2:
+        switch (choice) {
+          case Choice.one:
+            _storyNumber = 5;
+            break;
+          case Choice.two:
+            _storyNumber = 4;
+            break;
+        }
+        break;
+      default:
+        restart();
+    }
   }
 }
-
-//TODO: Step 23 - Use the storyNumber property inside getStory(), getChoice1() and getChoice2() so that it gets the updated story and choices rather than always just the first (0th) one.
-
-//TODO: Step 25 - Change the storyNumber property into a private property so that only story_brain.dart has access to it. You can do this by right clicking on the name (storyNumber) and selecting Refactor -> Rename to make the change across all the places where it's used.
-
-//TODO: Step 21 - Using the story plan, update nextStory() to change the storyNumber depending on the choice made by the user. e.g. if choiceNumber was equal to 1 and the storyNumber is 0, the storyNumber should become 2.
-
-//TODO: Step 22 - In nextStory() if the storyNumber is equal to 3 or 4 or 5, that means it's the end of the game and it should call a method called restart() that resets the storyNumber to 0.
 
 //TODO: Step 27 - Create a method called buttonShouldBeVisible() which checks to see if storyNumber is 0 or 1 or 2 (when both buttons should show choices) and return true if that is the case, else it should return false.
